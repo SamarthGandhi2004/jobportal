@@ -14,10 +14,6 @@ const companySchema=new mongoose.Schema({
         type:String,
        
     },
-    name:{
-        type:String,
-        required:true
-    },
     location:{
         type:String,
         required:true
