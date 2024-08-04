@@ -46,7 +46,7 @@ const jobSchema=mongoose.Schema({
     },
     applications:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'Applicaton'
+        ref:'Application'
     }]
 },{timestamps:true})
 
