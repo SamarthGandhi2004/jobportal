@@ -16,7 +16,8 @@ function App() {
 
   return (
     <>
-   {/* <Loading/> */}
+   {/* <Loader/> */}
+      
 <Navbar/>
 <Router>
 <Routes>
