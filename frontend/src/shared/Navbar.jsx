@@ -15,11 +15,11 @@ import { ChevronRight, LogOut, User2 } from "lucide-react"
 
 
 const Navbar = () => {
-  const user=true;
+  const user=false;
   return (
    
     <>
-      <div className="rounded-bl-[90px] rounded-br-[90px] bg-green-800 p-4 ">
+      <div className=" bg-green-800 p-4 ">
         <div className="max-w-7xl h-16 flex items-center justify-between mx-auto bg-green-800 font-medium">
           <div className="text-white text-2xl  ">Job <span>4</span>U</div>
 

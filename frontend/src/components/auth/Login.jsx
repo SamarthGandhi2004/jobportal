@@ -4,40 +4,43 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { RadioGroup } from '../ui/radio-group';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import axios from 'axios';
+import { USER_API_END_POINT } from '@/utils/constant';
 
 const Login = () => {
-  const[input,setInput]=useState({
-   
-    email:"",
+  const [input, setInput] = useState({
 
-    password:"",
-    role:"",
+    email: "",
+    password: "",
+    role: "",
 
   })
 
-  const eventHandler=(e)=>{
-setInput({...input,[e.target.name]:e.target.value});
+  const eventHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
   }
-  const fileHandler=(e)=>{
-    setInput({...input,file:e.target.files?.[0]});
-      }
-     const navigate=useNavigate()
+  const fileHandler = (e) => {
+    setInput({ ...input, file: e.target.files?.[0] });
+  }
+  const navigate = useNavigate()
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res=await axios.post(`${USER_API_END_POINT}/login`,formData,{
-        headers:{
-          "Content-Type":"application/json"
+      const res = await axios.post(`${USER_API_END_POINT}/login`,input,{
+        headers: {
+          "Content-Type": "application/json"
         },
-        withCredentials:true
+        withCredentials: true
       })
-      if(res.data.success){
+      if (res.data.success) {
         navigate("/")
         toast.success(res.data.message)
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.response.data.success)
     }
   };
 
@@ -57,7 +60,7 @@ setInput({...input,[e.target.name]:e.target.value});
         />
       </div>
 
-      
+
       <div className="flex flex-col">
         <Label htmlFor="password">Password</Label>
         <Input
@@ -96,7 +99,7 @@ setInput({...input,[e.target.name]:e.target.value});
           </div>
         </RadioGroup>
       </div>
-      
+
 
       <div>
         <Button

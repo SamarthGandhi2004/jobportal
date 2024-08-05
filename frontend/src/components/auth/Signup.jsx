@@ -8,6 +8,7 @@ import axios from 'axios';
 import { USER_API_END_POINT } from '@/utils/constant';
 import { toast } from 'sonner';
 
+
 const Signup = () => {
   const [input, setInput] = useState({
     fullName: "",
@@ -52,7 +53,7 @@ const navigate=useNavigate()
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message)
+      toast.error(error.res.data.message)
     }
   };
 
