@@ -7,6 +7,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { USER_API_END_POINT } from '@/utils/constant';
 import { toast } from 'sonner';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '@/redux/authSlice';
+import { Loader2 } from 'lucide-react';
+import Navbar from '@/shared/Navbar';
+
 
 
 const Signup = () => {
@@ -19,6 +24,8 @@ const Signup = () => {
     file: "",
   });
 const navigate=useNavigate()
+const dispatch = useDispatch()
+  const { loading } = useSelector(store => store.auth);
   const eventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -41,6 +48,7 @@ const navigate=useNavigate()
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      dispatch(setLoading(true))
       const res=await axios.post(`${USER_API_END_POINT}/register`,formData,{
         headers:{
           "Content-Type":"multipart/form-data"
@@ -53,11 +61,15 @@ const navigate=useNavigate()
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.res.data.message)
+      toast.error(error.response.data.message);
+    }
+    finally {
+      dispatch(setLoading(false))
     }
   };
 
-  return (
+  return (<>
+  <Navbar/>
     <form onSubmit={submitHandler} className="space-y-4 p-4 max-w-lg mx-auto mt-5 border border-gray-600 rounded-md">
       <div className="flex flex-col">
         <Label htmlFor="fullName">Full Name</Label>
@@ -148,15 +160,19 @@ const navigate=useNavigate()
       </div>
 
       <div>
-        <Button
-          type="submit"
-          className="w-full bg-green-800 text-white hover:bg-green-700"
-        >
-          Signup
-        </Button>
+      {
+        loading ? <Button className="w-full bg-green-800 text-white"><Loader2 className='mr-2 h-4 w-4 animate-spin ' />Please wait</Button> :
+          <Button
+            type="submit"
+            className="w-full bg-green-800 text-white hover:bg-green-700"
+          >
+            Login
+          </Button>
+      }
         <span className='text-sm'>Already have an account? <Link to="/login" className='text-blue-600'>Login</Link></span>
       </div>
     </form>
+    </>
   );
 };
 

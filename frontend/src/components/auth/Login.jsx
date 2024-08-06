@@ -7,6 +7,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { USER_API_END_POINT } from '@/utils/constant';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '@/redux/authSlice';
+import store from '@/redux/store';
+import { Loader2 } from 'lucide-react';
+import Navbar from '@/shared/Navbar';
+
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -24,11 +30,13 @@ const Login = () => {
     setInput({ ...input, file: e.target.files?.[0] });
   }
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
+  const { loading } = useSelector(store => store.auth);
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${USER_API_END_POINT}/login`,input,{
+      dispatch(setLoading(true))
+      const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
         headers: {
           "Content-Type": "application/json"
         },
@@ -42,9 +50,14 @@ const Login = () => {
       console.log(error);
       toast.error(error.response.data.success)
     }
+    finally {
+      dispatch(setLoading(false))
+    }
   };
 
   return (
+    <>
+    <Navbar/>
     <form onSubmit={submitHandler} className="space-y-4 p-4 max-w-lg mx-auto mt-[6rem] border border-gray-600 rounded-md"  >
 
       <div className="flex flex-col">
@@ -101,16 +114,21 @@ const Login = () => {
       </div>
 
 
-      <div>
-        <Button
-          type="submit"
-          className="w-full bg-green-800 text-white hover:bg-green-700"
-        >
-          Login
-        </Button>
+      <div>{
+        loading ? <Button className="w-full bg-green-800 text-white"><Loader2 className='mr-2 h-4 w-4 animate-spin ' />Please wait</Button> :
+          <Button
+            type="submit"
+            className="w-full bg-green-800 text-white hover:bg-green-700"
+          >
+            Login
+          </Button>
+      }
+
         <span className='text-sm'>don't have an account? <Link to="/signup" className='text-blue-600'>Signup</Link></span>
       </div>
+  
     </form>
+    </>
   );
 };
 

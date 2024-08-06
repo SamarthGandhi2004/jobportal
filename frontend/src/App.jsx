@@ -18,8 +18,8 @@ function App() {
     <>
    {/* <Loader/> */}
       
-<Navbar/>
 <Router>
+
 <Routes>
 <Route path="/" element={<Home/>}/>
   <Route path="/Signup" element={<Signup/>}/>
