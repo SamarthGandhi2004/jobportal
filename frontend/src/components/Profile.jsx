@@ -7,11 +7,13 @@ import { Badge } from './ui/badge';
 import { Label } from './ui/label';
 import AppliedJobTable from './AppliedJobTable';
 import { UpdateProfile } from './UpdateProfile';
+import { useSelector } from 'react-redux';
+import store from '@/redux/store';
 
 const Profile = () => {
   const skills = ["Html", "Css", "Javascript", "Reactjs"]
   const [open,setOpen]=useState(false)
-
+const {user}=useSelector(store=>store.auth);
   const isResume = true
   return (
     <>
@@ -23,8 +25,8 @@ const Profile = () => {
               <AvatarImage src="https://github.com/shadcn.png" />
             </Avatar>
             <div>
-              <h1 className='font-medium text-xl text-green-700'>Full Name</h1>
-              <p className='text-green-700'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure dignissimos</p>
+              <h1 className='font-medium text-xl text-green-700'>{user?.fullName}</h1>
+              <p className='text-green-700'>{user?.profile?.bio}</p>
             </div>
           </div>
           <Button className="text-right" variant="outline" onClick={()=>setOpen(true)}><Pen /></Button>
@@ -32,17 +34,17 @@ const Profile = () => {
         <div className='my-5'>
           <div className='flex items-center gap-3 my-2'>
             <Mail className="text-green-700" />
-            <span className='text-green-700'>name@gmail.com</span>
+            <span className='text-green-700'>{user.email}</span>
           </div>
           <div className='flex items-center gap-3 my-2'>
             <Contact className="text-green-700" />
-            <span className='text-green-700'>9205078728</span>
+            <span className='text-green-700'>{user.phoneNumber}</span>
           </div>
         </div>
         <div>
           <h1 className='text-green-700'>Skills</h1>
           <div className='flex gap-2'>{
-            skills.length !== 0 ? skills.map((item, index) => <Badge key={index} className="cursor-pointer border-2 border-green-800 text-green-800 bg-transparent hover:bg-green-800 hover:text-white hover:border-white flex justify-center items-center h-8 w-20">{item}</Badge>) : <span>NA</span>
+          user?.profile?.skills.length !== 0 ? user?.profile?.skills.map((item, index) => <Badge key={index} className="cursor-pointer border-2 border-green-800 text-green-800 bg-transparent hover:bg-green-800 hover:text-white hover:border-white flex justify-center items-center h-8 w-20">{item}</Badge>) : <span>NA</span>
           }
           </div>
         </div>

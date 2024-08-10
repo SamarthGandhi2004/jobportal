@@ -4,17 +4,21 @@ import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Loader2 } from 'lucide-react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import store from '@/redux/store'
+import axios from 'axios'
+import { USER_API_END_POINT } from '@/utils/constant'
+import { setUser } from '@/redux/authSlice'
+import { toast } from 'sonner'
 
 
 
 
 export const UpdateProfile = ({ open, setOpen }) => {
-    
-    const [loading, setLoading] = useState(false)
-    const {user}=useSelector(store=>store.auth);
 
+    const [loading, setLoading] = useState(false)
+    const { user } = useSelector(store => store.auth);
+    const dispatch = useDispatch();
     const [input, setInput] = useState({
         fullName: user?.fullName || "",
         email: user?.email || "",
@@ -22,22 +26,22 @@ export const UpdateProfile = ({ open, setOpen }) => {
         bio: user?.profile?.bio || "",
         skills: user?.profile?.skills?.map(skill => skill) || "",
         file: user?.profile?.resume || ""
- 
+
     });
     console.log(input)
-    const eventHandler=(e)=>{
-setInput({...input,[e.target.name]:e.target.value});
+    const eventHandler = (e) => {
+        setInput({ ...input, [e.target.name]: e.target.value });
     }
 
-    const fileHandler=(e)=>{
-        const file=e.target.files?.[0];
-        setInput({...input,file })
+    const fileHandler = (e) => {
+        const file = e.target.files?.[0];
+        setInput({ ...input, file })
     }
 
-    const submitHandler=async(e)=>{
-       e.preventDefault();
-       const formData=new FormData();
-       formData.append("fullName", input.fullName);
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("fullName", input.fullName);
         formData.append("email", input.email);
         formData.append("phoneNumber", input.phoneNumber);
         formData.append("bio", input.bio);
@@ -45,6 +49,23 @@ setInput({...input,[e.target.name]:e.target.value});
         if (input.file) {
             formData.append("file", input.file);
         }
+
+        try {
+            const res = await axios.post(`${USER_API_END_POINT}/profile/update`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials: true
+            })
+            if (res.data.success) {
+                dispatch(setUser(res.data.user));
+                toast.success(res.data.message)
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message)
+        }
+        setOpen(false)
     }
 
     return (
@@ -63,7 +84,7 @@ setInput({...input,[e.target.name]:e.target.value});
                                 id="name"
                                 name="fulName"
                                 type="text"
-                                value={input.fullname}
+                                value={input.fullName}
                                 onChange={eventHandler}
                                 className="col-span-3"
                             />

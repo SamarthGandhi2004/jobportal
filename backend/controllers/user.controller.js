@@ -116,6 +116,8 @@ export const updateProfile = async (req, res) => {
         const { fullName, email, phoneNumber, bio, skills } = req.body;
         const file = req.file;
 
+        
+        console.log( fullName, email, phoneNumber, bio, skills );
         // Cloudinary setup
         let skillsArray;
         if (skills) {
