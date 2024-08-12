@@ -52,7 +52,7 @@ const {user}=useSelector(store=>store.auth);
         <div className='mt-4'>
           <Label className='text-green-700'>Resume</Label>
           {
-            isResume ? <a target="blank" href="#" className='text-blue-600 w-full hover:underline cursor-pointer'>resume link idhar ayega</a> : <span>NA</span>
+            isResume ? <a target="blank" href={user?.profile?.resume} className='text-blue-600 w-full hover:underline cursor-pointer'>{user?.profile?.resumeOriginalName}</a> : <span>NA</span>
           }
         </div>
 

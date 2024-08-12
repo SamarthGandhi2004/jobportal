@@ -169,7 +169,7 @@ const dispatch = useDispatch()
             Login
           </Button>
       }
-        <span className='text-sm'>Already have an account? <Link to="/login" className='text-blue-600'>Login</Link></span>
+        <span className='text-sm'>Already have an account? <Link to="/login" className='text-blue-600'>Signup</Link></span>
       </div>
     </form>
     </>
