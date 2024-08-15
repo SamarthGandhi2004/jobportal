@@ -36,13 +36,13 @@ const dispatch = useDispatch()
 
   const formData=new FormData();
 
-  formData.append("fullName",input.fullName)
-  formData.append("email",input.email)
-  formData.append("phoneNumber",input.phone)
-  formData.append("password",input.password)
-  formData.append("role",input.role)
+  formData.append("fullName",input?.fullName)
+  formData.append("email",input?.email)
+  formData.append("phoneNumber",input?.phone)
+  formData.append("password",input?.password)
+  formData.append("role",input?.role)
   if(input.file){
-    formData.append("file",input.file)
+    formData.append("file",input?.file)
   }
 
   const submitHandler = async (e) => {
@@ -76,7 +76,7 @@ const dispatch = useDispatch()
         <Input
           type="text"
           name="fullName"
-          value={input.fullName}
+          value={input?.fullName}
           placeholder="John ji"
           onChange={eventHandler}
           required
@@ -88,7 +88,7 @@ const dispatch = useDispatch()
         <Label htmlFor="email">Email</Label>
         <Input
           type="email"
-          value={input.email}
+          value={input?.email}
           name="email"
           placeholder="john@gmail.com"
           onChange={eventHandler}
@@ -101,7 +101,7 @@ const dispatch = useDispatch()
         <Label htmlFor="phone">Phone Number</Label>
         <Input
           type="text"
-          value={input.phone}
+          value={input?.phone}
           name="phone"
           placeholder="123-456-7890"
           onChange={eventHandler}
@@ -114,7 +114,7 @@ const dispatch = useDispatch()
         <Label htmlFor="password">Password</Label>
         <Input
           type="password"
-          value={input.password}
+          value={input?.password}
           name="password"
           placeholder="********"
           onChange={eventHandler}

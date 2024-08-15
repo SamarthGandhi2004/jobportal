@@ -60,6 +60,7 @@ export const UpdateProfile = ({ open, setOpen }) => {
                 withCredentials: true
             })
             if (res.data.success) {
+                console.log("yo")
                 dispatch(setUser(res.data.user));
                 toast.success(res.data.message)
             }

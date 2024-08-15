@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Loading from './components/Loading'
 import Navbar from './shared/Navbar'
-import { BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import { BrowserRouter as Router,Routes,Route, BrowserRouter} from 'react-router-dom'
 
 import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
@@ -22,7 +22,7 @@ function App() {
     <>
    {/* <Loader/> */}
       
-<Router>
+<BrowserRouter>
 
 <Routes>
 <Route path="/" element={<Home/>}/>
@@ -35,7 +35,7 @@ function App() {
   
 </Routes>
 
-</Router>
+</BrowserRouter>
     </>
   )
 }

@@ -66,7 +66,7 @@ const Login = () => {
           <Label htmlFor="email">Email</Label>
           <Input
             type="email"
-            value={input.email}
+            value={input?.email}
             name="email"
             placeholder="john@gmail.com"
             onChange={eventHandler}
@@ -79,7 +79,7 @@ const Login = () => {
           <Label htmlFor="password">Password</Label>
           <Input
             type="password"
-            value={input.password}
+            value={input?.password}
             name="password"
             placeholder="********"
             onChange={eventHandler}
@@ -94,7 +94,7 @@ const Login = () => {
             <div className="flex items-center">
               <input
                 type="radio"
-                checked={input.role === 'student'}
+                checked={input?.role === 'student'}
                 name="role"
                 value="student"
                 onChange={eventHandler}
@@ -104,7 +104,7 @@ const Login = () => {
             <div className="flex items-center mt-1">
               <input
                 type="radio"
-                checked={input.role === 'recruiter'}
+                checked={input?.role === 'recruiter'}
                 name="role"
                 value="recruiter"
                 onChange={eventHandler}
