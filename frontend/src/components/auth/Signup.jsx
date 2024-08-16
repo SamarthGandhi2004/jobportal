@@ -166,7 +166,7 @@ const dispatch = useDispatch()
             type="submit"
             className="w-full bg-green-800 text-white hover:bg-green-700"
           >
-            Login
+            Signup
           </Button>
       }
         <span className='text-sm'>Already have an account? <Link to="/login" className='text-blue-600'>Signup</Link></span>

@@ -12,11 +12,11 @@ function Loading() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
-            duration: 2.5, // Slower animation duration
-            delay: i * 0.5, // Increased delay for slower sequential animation
+            duration: 2.5, 
+            delay: i * 0.5, 
           }}
           key={i}
-          className={`font-sans text-white font-bold tracking-tight ${
+          className={`font-serif text-white font-bold tracking-tight ${
             el === "4" ? "text-[250px] relative -top-10 mx-2" : "text-[280px] mx-2"
           }`}
         >

@@ -9,9 +9,10 @@ import AppliedJobTable from './AppliedJobTable';
 import { UpdateProfile } from './UpdateProfile';
 import { useSelector } from 'react-redux';
 import store from '@/redux/store';
+import useGetAppliedJobs from './hooks/useGetAppliedJobs';
 
 const Profile = () => {
-  const skills = ["Html", "Css", "Javascript", "Reactjs"]
+    useGetAppliedJobs();
   const [open,setOpen]=useState(false)
 const {user}=useSelector(store=>store.auth);
   const isResume = true
@@ -22,7 +23,7 @@ const {user}=useSelector(store=>store.auth);
         <div className='flex justify-between items-start'>
           <div className='flex items-center gap-4'>
             <Avatar className="h-24 w-24">
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={user?.profile?.profilePhoto} />
             </Avatar>
             <div>
               <h1 className='font-medium text-xl text-green-700'>{user?.fullName}</h1>

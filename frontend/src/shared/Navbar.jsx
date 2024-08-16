@@ -18,38 +18,48 @@ import { toast } from 'sonner';
 
 
 const Navbar = () => {
-  const {user} = useSelector(store=>store.auth);
-  const dispatch=useDispatch();
-  const navigate=useNavigate();
-const handleLogout=async(e)=>{
+  const { user } = useSelector(store => store.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = async (e) => {
 
 
-try {
-  const res=await axios.get(`${USER_API_END_POINT}/logout`,
-    {withCredentials:true})
-    if(res.data.success){
-      dispatch(setUser(null));
-      navigate("/")
-toast.success(res.data.message)
+    try {
+      const res = await axios.get(`${USER_API_END_POINT}/logout`,
+        { withCredentials: true })
+      if (res.data.success) {
+        dispatch(setUser(null));
+        navigate("/")
+        toast.success(res.data.message)
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.message);
     }
-  } catch (error) {
-  console.log(error) 
-  toast.error(error.response.data.message);
-}
-}
+  }
   return (
     <div className="bg-white p-4">
       <div className="max-w-7xl h-11 flex items-center justify-between mx-auto bg-white font-medium">
-        <div className="text-green-700 text-5xl  font-serif">
-  Job <span className="text-yellow-300 text-7xl border-green-700 rounded bg-green-700 p-3">4</span>U
-</div>
+        <div onClick={()=>navigate("/")}className="text-green-700 text-5xl  font-serif cursor-pointer">
+          Job <span className="text-yellow-300 text-7xl border-green-700 rounded bg-green-700 p-3">4</span>U
+        </div>
 
 
         <div className="flex items-center gap-2">
           <ul className='flex gap-5 items-center'>
-            <li className='text-green-800 text-1xl font-normal'><Link to={"/"}>Home</Link></li>
-            <li className='text-green-800 text-1xl font-normal'><Link to={"/jobs"}>Jobs</Link></li>
-            <li className='text-green-800 text-1xl font-normal'><Link to={"/browse"}>Browse</Link></li>
+            {
+              user && user.role === 'recruiter' ? (
+                <>
+ <li className='text-green-800 text-1xl font-normal'><Link to={"/admin/companies"}>Companies</Link></li>
+ <li className='text-green-800 text-1xl font-normal'><Link to={"/admin/jobs"}>Jobs</Link></li>
+                </>
+
+              )
+                : (<>
+                  <li className='text-green-800 text-1xl font-normal'><Link to={"/"}>Home</Link></li>
+                  <li className='text-green-800 text-1xl font-normal'><Link to={"/jobs"}>Jobs</Link></li>
+                  <li className='text-green-800 text-1xl font-normal'><Link to={"/browse"}>Browse</Link></li>
+                </>)}
           </ul>
 
           {
@@ -93,10 +103,15 @@ toast.success(res.data.message)
                       </div>
                     </div>
                     <div className="flex flex-col my-2 text-gray-600">
-                      <div className="flex gap-2 w-fit items-center cursor-pointer">
+                      {
+                            user && user.role === 'student' ? (<>
+                             <div className="flex gap-2 w-fit items-center cursor-pointer">
                         <User2 />
                         <Button variant="link"><Link to={"/profile"}>View Profile</Link></Button>
                       </div>
+                            </>):(<></>)
+                      }
+                     
                       <div className="flex gap-2 w-fit items-center cursor-pointer">
                         <LogOut />
                         <Button onClick={handleLogout} variant="link">Logout</Button>
