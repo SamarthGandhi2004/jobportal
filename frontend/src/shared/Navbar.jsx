@@ -65,17 +65,18 @@ const Navbar = () => {
           {
             !user ? (
               <>
-                <div className='flex items-center'>
-                  <NavLink to="/Signup">
-                    <Button className="cursor-pointer border-2 border-green-800 text-green-800 bg-transparent hover:bg-green-800 hover:text-white hover:border-white">
-                      Signup
-                    </Button>
-                  </NavLink>
-                </div>
+              
                 <div className='flex items-center'>
                   <NavLink to="/Login">
                     <Button className="cursor-pointer border-2 border-green-800 text-green-800 bg-transparent hover:bg-green-800 hover:text-white hover:border-white">
                       Login
+                    </Button>
+                  </NavLink>
+                </div>
+                <div className='flex items-center'>
+                  <NavLink to="/Signup">
+                    <Button className="cursor-pointer border-2 border-green-800 text-green-800 bg-transparent hover:bg-green-800 hover:text-white hover:border-white">
+                      Signup
                     </Button>
                   </NavLink>
                 </div>
