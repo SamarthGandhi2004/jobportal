@@ -28,7 +28,7 @@ export const UpdateProfile = ({ open, setOpen }) => {
         file: user?.profile?.resume || ""
 
     });
-    console.log(input)
+    
     const eventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     }
@@ -60,7 +60,7 @@ export const UpdateProfile = ({ open, setOpen }) => {
                 withCredentials: true
             })
             if (res.data.success) {
-                console.log("yo")
+           
                 dispatch(setUser(res.data.user));
                 toast.success(res.data.message)
             }

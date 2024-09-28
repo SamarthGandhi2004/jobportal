@@ -12,7 +12,7 @@ useEffect(()=>{
             const res= await axios.get(`${JOB_API_END_POINT}/getadminjobs`,{withCredentials:true});
             if(res.data.success){
 dispatch(setAllAdminJobs(res.data.jobs))
-console.log("good to go")
+
             }
         } catch (error) {
             console.log(error);
