@@ -23,7 +23,7 @@ app.use(cookieParser());
 
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: 'https://job4u-xay5.onrender.com',
     credentials: true
 }
 
